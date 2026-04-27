@@ -106,11 +106,18 @@ body {
   border: 1px solid var(--surface-border);
   border-radius: 16px;
   transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  display: flex;
+  flex-direction: column;
 }
 .card:hover {
   transform: translateY(-4px);
   border-color: rgba(79,70,229,0.5);
   box-shadow: 0 0 32px rgba(79,70,229,0.15);
+}
+
+/* equal-height feature cards — description grows to fill available space */
+.card .card-desc {
+  flex: 1;
 }
 
 /* icon circle */
@@ -129,6 +136,8 @@ body {
   border-radius: 14px;
   padding: 22px;
   transition: border-color 0.25s;
+  display: flex;
+  flex-direction: column;
 }
 .pain-card:hover { border-color: rgba(239,68,68,0.45); }
 
