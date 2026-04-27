@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Server Monitor — Control Every Container. Protect Every Environment.</title>
+  <meta name="description" content="Server Monitor is the self-hosted, enterprise-ready platform for monitoring and managing distributed Docker environments from one central dashboard. Real-time visibility, remote container operations, alerting, and role-based governance." />
+  <meta name="keywords" content="docker monitoring, container management, server monitoring, devops, self-hosted, infrastructure monitoring" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Server Monitor — Control Every Container" />
+  <meta property="og:description" content="Centralized Docker monitoring, alerting, and governance for DevOps and infrastructure teams." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <style>
+    /* Tailwind-like utilities (inline to avoid CDN dependency) */
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section    { padding: 96px 0; }
+    .section-sm { padding: 64px 0; }
+    .flex { display: flex; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .justify-center { justify-content: center; }
+    .gap-2 { gap: 8px; }
+    .gap-3 { gap: 12px; }
+    .gap-4 { gap: 16px; }
+    .gap-6 { gap: 24px; }
+    .gap-8 { gap: 32px; }
+    .grid { display: grid; }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    .text-center { text-align: center; }
+    .text-sm { font-size: 14px; }
+    .text-xs { font-size: 12px; }
+    .font-semibold { font-weight: 600; }
+    .font-bold { font-weight: 700; }
+    .font-extrabold { font-weight: 800; }
+    .mb-1 { margin-bottom: 4px; }
+    .mb-2 { margin-bottom: 8px; }
+    .mb-3 { margin-bottom: 12px; }
+    .mb-4 { margin-bottom: 16px; }
+    .mb-6 { margin-bottom: 24px; }
+    .mb-8 { margin-bottom: 32px; }
+    .mb-12 { margin-bottom: 48px; }
+    .mt-1 { margin-top: 4px; }
+    .mt-2 { margin-top: 8px; }
+    .mt-4 { margin-top: 16px; }
+    .mt-6 { margin-top: 24px; }
+    .mt-8 { margin-top: 32px; }
+    .p-4 { padding: 16px; }
+    .p-6 { padding: 24px; }
+    .p-8 { padding: 32px; }
+    .w-full { width: 100%; }
+    .relative { position: relative; }
+    .absolute { position: absolute; }
+    .overflow-hidden { overflow: hidden; }
+    .rounded-xl { border-radius: 16px; }
+    .rounded-2xl { border-radius: 20px; }
+    .opacity-50 { opacity: 0.5; }
+    .opacity-60 { opacity: 0.6; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════ -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <div class="flex items-center justify-between" style="height:64px;">
+      <!-- Logo -->
+      <a href="#" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#4f46e5,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:18px;">🖥</div>
+        <span style="font-weight:800;font-size:17px;color:#f1f5f9;letter-spacing:-0.01em;">Server<span style="color:#818cf8;">Monitor</span></span>
+      </a>
+
+      <!-- Desktop links -->
+      <div class="flex gap-4 items-center" style="display:flex;gap:8px;" id="nav-links">
+        <a href="#features"   style="color:#94a3b8;font-size:14px;font-weight:500;text-decoration:none;padding:6px 10px;border-radius:8px;transition:color .2s;" onmouseover="this.style.color='#a5b4fc'" onmouseout="this.style.color='#94a3b8'">Features</a>
+        <a href="#how"        style="color:#94a3b8;font-size:14px;font-weight:500;text-decoration:none;padding:6px 10px;border-radius:8px;transition:color .2s;" onmouseover="this.style.color='#a5b4fc'" onmouseout="this.style.color='#94a3b8'">How It Works</a>
+        <a href="#usecases"   style="color:#94a3b8;font-size:14px;font-weight:500;text-decoration:none;padding:6px 10px;border-radius:8px;transition:color .2s;" onmouseover="this.style.color='#a5b4fc'" onmouseout="this.style.color='#94a3b8'">Use Cases</a>
+        <a href="#pricing"    style="color:#94a3b8;font-size:14px;font-weight:500;text-decoration:none;padding:6px 10px;border-radius:8px;transition:color .2s;" onmouseover="this.style.color='#a5b4fc'" onmouseout="this.style.color='#94a3b8'">Pricing</a>
+        <a href="#contact"    class="btn-primary" style="padding:8px 20px;font-size:14px;">Talk to Us</a>
+      </div>
+
+      <!-- Mobile toggle -->
+      <button id="nav-toggle" aria-label="Toggle menu" aria-expanded="false"
+        style="display:none;background:none;border:none;cursor:pointer;padding:8px;color:#94a3b8;font-size:20px;">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" role="menu">
+    <a href="#features">Features</a>
+    <a href="#how">How It Works</a>
+    <a href="#usecases">Use Cases</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact" style="color:#a5b4fc;font-weight:600;">Talk to Us →</a>
+  </div>
+</nav>
+
+<style>
+@media (max-width: 768px) {
+  #nav-links { display: none !important; }
+  #nav-toggle { display: block !important; }
+}
+</style>
+
+
+<!-- ═══════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<section class="hero-gradient hero-grid relative overflow-hidden" style="padding: 140px 0 100px;">
+  <!-- Glow blobs -->
+  <div style="position:absolute;top:-120px;left:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(79,70,229,0.18),transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;top:60px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(6,182,212,0.12),transparent 70%);pointer-events:none;"></div>
+
+  <div class="container text-center" style="position:relative;z-index:1;">
+    <div class="fade-up mb-6">
+      <span class="badge-pill">
+        <i class="fa fa-circle" style="font-size:8px;color:#4ade80;"></i>
+        Enterprise Docker Monitoring Platform
+      </span>
+    </div>
+
+    <h1 class="fade-up" style="font-size:clamp(2.4rem,5.5vw,4rem);font-weight:900;line-height:1.1;letter-spacing:-0.025em;margin-bottom:24px;">
+      One Dashboard for<br/>
+      <span class="gradient-text">Every Docker Host</span><br/>
+      You Manage
+    </h1>
+
+    <p class="fade-up" style="font-size:clamp(1rem,2vw,1.2rem);color:#94a3b8;max-width:620px;margin:0 auto 40px;">
+      Monitor containers, track services, stream logs, and respond to incidents in real time —
+      with secure role-based control across all your environments.
+    </p>
+
+    <div class="fade-up flex justify-center gap-4" style="flex-wrap:wrap;">
+      <a href="#contact" class="btn-primary" style="font-size:16px;padding:15px 32px;">
+        <i class="fa fa-rocket"></i> Request a Demo
+      </a>
+      <a href="#pricing" class="btn-outline" style="font-size:16px;padding:15px 32px;">
+        View Pricing <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- Trust strip -->
+    <div class="fade-up" style="margin-top:56px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.07);">
+      <p style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#475569;margin-bottom:24px;">
+        Trusted capabilities for production environments
+      </p>
+      <div class="flex justify-center gap-6" style="flex-wrap:wrap;gap:32px;">
+        <div style="display:flex;align-items:center;gap:8px;color:#64748b;font-size:13px;font-weight:500;">
+          <i class="fa fa-shield-halved" style="color:#818cf8;"></i> JWT Authentication
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;color:#64748b;font-size:13px;font-weight:500;">
+          <i class="fa fa-bolt" style="color:#facc15;"></i> Real-time WebSocket
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;color:#64748b;font-size:13px;font-weight:500;">
+          <i class="fa fa-server" style="color:#34d399;"></i> Self-hosted or Cloud
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;color:#64748b;font-size:13px;font-weight:500;">
+          <i class="fa fa-users" style="color:#60a5fa;"></i> RBAC Governance
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;color:#64748b;font-size:13px;font-weight:500;">
+          <i class="fa fa-bell" style="color:#f87171;"></i> Proactive Alerting
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     STATS
+════════════════════════════════════════════ -->
+<section style="background:#0d1526;padding:64px 0;border-top:1px solid #1e293b;border-bottom:1px solid #1e293b;">
+  <div class="container">
+    <div class="grid grid-4" style="gap:32px;text-align:center;">
+      <div class="fade-up">
+        <div style="font-size:2.4rem;font-weight:900;" class="gradient-text">
+          <span data-count="99" data-suffix="%">0%</span>
+        </div>
+        <div style="color:#64748b;font-size:14px;margin-top:4px;">Uptime visibility goal</div>
+      </div>
+      <div class="fade-up">
+        <div style="font-size:2.4rem;font-weight:900;" class="gradient-text">
+          <span data-count="10" data-suffix="x">0x</span>
+        </div>
+        <div style="color:#64748b;font-size:14px;margin-top:4px;">Faster incident response</div>
+      </div>
+      <div class="fade-up">
+        <div style="font-size:2.4rem;font-weight:900;" class="gradient-text">
+          <span data-count="100" data-suffix="+">0+</span>
+        </div>
+        <div style="color:#64748b;font-size:14px;margin-top:4px;">Containers per dashboard</div>
+      </div>
+      <div class="fade-up">
+        <div style="font-size:2.4rem;font-weight:900;" class="gradient-text">
+          <span data-count="4" data-suffix=" roles">0</span>
+        </div>
+        <div style="color:#64748b;font-size:14px;margin-top:4px;">RBAC access tiers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     PAIN SECTION — Cost of Not Using
+════════════════════════════════════════════ -->
+<section class="section" id="pain" style="background:linear-gradient(180deg,#0d1526 0%,#0f172a 100%);">
+  <div class="container">
+    <div class="text-center mb-12 fade-up">
+      <p class="section-eyebrow mb-3">⚠️ The Hidden Cost of Inaction</p>
+      <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;line-height:1.2;margin-bottom:16px;">
+        What Happens When You <span class="gradient-text-danger">Don't Monitor</span> Your Infrastructure?
+      </h2>
+      <p style="color:#94a3b8;max-width:580px;margin:0 auto;">
+        Every hour without centralized monitoring is an hour your team is flying blind.
+        The damage compounds silently until it can't be ignored.
+      </p>
+    </div>
+
+    <div class="grid grid-3" style="gap:20px;margin-bottom:48px;">
+      <!-- Pain cards -->
+      <div class="pain-card fade-up">
+        <div style="font-size:28px;margin-bottom:12px;">🔥</div>
+        <h3 style="font-weight:700;color:#fca5a5;margin-bottom:8px;font-size:16px;">Production Outages Caught Too Late</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.6;">Without real-time container health data, a crashed service can go undetected for hours. Customers experience downtime before your on-call team is even paged.</p>
+      </div>
+      <div class="pain-card fade-up">
+        <div style="font-size:28px;margin-bottom:12px;">⏳</div>
+        <h3 style="font-weight:700;color:#fca5a5;margin-bottom:8px;font-size:16px;">Hours Wasted on Manual Log Hunting</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.6;">SSH-ing into each server one by one, running <code style="background:rgba(255,255,255,0.06);padding:1px 6px;border-radius:4px;font-size:12px;">docker logs</code> manually, and correlating issues across hosts wastes engineering time that should go toward building.</p>
+      </div>
+      <div class="pain-card fade-up">
+        <div style="font-size:28px;margin-bottom:12px;">💸</div>
+        <h3 style="font-weight:700;color:#fca5a5;margin-bottom:8px;font-size:16px;">Invisible Resource Waste</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.6;">Over-provisioned containers, runaway memory leaks, and zombie processes quietly drain cloud spend. Without CPU/memory visibility per container, cost optimization is impossible.</p>
+      </div>
+      <div class="pain-card fade-up">
+        <div style="font-size:28px;margin-bottom:12px;">🔓</div>
+        <h3 style="font-weight:700;color:#fca5a5;margin-bottom:8px;font-size:16px;">Unauthorized Operations Go Unnoticed</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.6;">When any team member can SSH and run any Docker command, there's no audit trail. Accidental container removals and config changes become a liability in regulated environments.</p>
+      </div>
+      <div class="pain-card fade-up">
+        <div style="font-size:28px;margin-bottom:12px;">📉</div>
+        <h3 style="font-weight:700;color:#fca5a5;margin-bottom:8px;font-size:16px;">Expired TLS Certificates Causing Outages</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.6;">SSL certificate expirations are entirely preventable — yet they still cause major outages. Without proactive tracking and alerting, you learn about them from angry customers.</p>
+      </div>
+      <div class="pain-card fade-up">
+        <div style="font-size:28px;margin-bottom:12px;">🧩</div>
+        <h3 style="font-weight:700;color:#fca5a5;margin-bottom:8px;font-size:16px;">Tool Sprawl and Context Switching</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.6;">Using Grafana for metrics, Kibana for logs, Ansible for operations, and Slack for alerts creates a fragmented workflow. Each context switch costs your team 20+ minutes of focus.</p>
+      </div>
+    </div>
+
+    <!-- Impact stats -->
+    <div class="card p-8 fade-up">
+      <h3 class="text-center font-bold" style="margin-bottom:32px;font-size:1.1rem;color:#cbd5e1;">
+        Industry Impact Without Centralized Monitoring
+      </h3>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px;">
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span style="font-size:13px;color:#94a3b8;">Mean Time to Detect (MTTD)</span>
+            <span style="font-size:13px;font-weight:700;color:#f87171;">4.2 hrs avg</span>
+          </div>
+          <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:84%;"></div></div>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span style="font-size:13px;color:#94a3b8;">Mean Time to Resolve (MTTR)</span>
+            <span style="font-size:13px;font-weight:700;color:#f87171;">7.1 hrs avg</span>
+          </div>
+          <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:71%;"></div></div>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span style="font-size:13px;color:#94a3b8;">Downtime cost (per hour)</span>
+            <span style="font-size:13px;font-weight:700;color:#f87171;">$5,600+</span>
+          </div>
+          <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:90%;"></div></div>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span style="font-size:13px;color:#94a3b8;">Engineer hours lost / month</span>
+            <span style="font-size:13px;font-weight:700;color:#f87171;">40+ hrs</span>
+          </div>
+          <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:78%;"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FEATURES
+════════════════════════════════════════════ -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="text-center mb-12 fade-up">
+      <p class="section-eyebrow mb-3">Platform Capabilities</p>
+      <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;line-height:1.2;margin-bottom:16px;">
+        Everything Your Team Needs to <span class="gradient-text">Run Docker at Scale</span>
+      </h2>
+      <p style="color:#94a3b8;max-width:560px;margin:0 auto;">
+        Nine deeply integrated capability areas — from real-time container operations to certificate monitoring — designed to replace your entire ops toolchain.
+      </p>
+    </div>
+
+    <!-- Feature grid -->
+    <div class="grid grid-3" style="gap:20px;">
+
+      <!-- F1 -->
+      <div class="card p-6 fade-up">
+        <div class="icon-circle mb-4" style="background:rgba(79,70,229,0.15);">
+          <i class="fa fa-globe" style="color:#818cf8;"></i>
+        </div>
+        <h3 style="font-weight:700;margin-bottom:8px;font-size:1rem;">Multi-Environment Management</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.65;">Register and centrally monitor multiple remote Docker hosts. Track agent connectivity, host health status, and environment availability from a single dashboard — no more jumping between terminals.</p>
+        <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="background:rgba(79,70,229,0.12);color:#a5b4fc;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Multi-host</span>
+          <span style="background:rgba(79,70,229,0.12);color:#a5b4fc;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Agent health</span>
+          <span style="background:rgba(79,70,229,0.12);color:#a5b4fc;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Status at-a-glance</span>
+        </div>
+      </div>
+
+      <!-- F2 -->
+      <div class="card p-6 fade-up">
+        <div class="icon-circle mb-4" style="background:rgba(6,182,212,0.12);">
+          <i class="fa fa-cubes" style="color:#22d3ee;"></i>
+        </div>
+        <h3 style="font-weight:700;margin-bottom:8px;font-size:1rem;">Real-Time Container Operations</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.65;">Start, stop, restart, kill, pause, resume, and remove containers remotely with a single click. View live CPU, memory, and I/O stats per container — no CLI knowledge required.</p>
+        <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="background:rgba(6,182,212,0.1);color:#67e8f9;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Remote control</span>
+          <span style="background:rgba(6,182,212,0.1);color:#67e8f9;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Live stats</span>
+          <span style="background:rgba(6,182,212,0.1);color:#67e8f9;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">I/O metrics</span>
+        </div>
+      </div>
+
+      <!-- F3 -->
+      <div class="card p-6 fade-up">
+        <div class="icon-circle mb-4" style="background:rgba(251,191,36,0.12);">
+          <i class="fa fa-file-lines" style="color:#fbbf24;"></i>
+        </div>
+        <h3 style="font-weight:700;margin-bottom:8px;font-size:1rem;">Advanced Log Intelligence</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.65;">Stream live logs via WebSocket in real time. Tail logs, apply time-range filters, copy snippets, and export full log sets for forensic incident analysis — all from the browser.</p>
+        <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="background:rgba(251,191,36,0.1);color:#fde68a;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Live streaming</span>
+          <span style="background:rgba(251,191,36,0.1);color:#fde68a;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Time-range filter</span>
+          <span style="background:rgba(251,191,36,0.1);color:#fde68a;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Export</span>
+        </div>
+      </div>
+
+      <!-- F4 -->
+      <div class="card p-6 fade-up">
+        <div class="icon-circle mb-4" style="background:rgba(34,197,94,0.12);">
+          <i class="fa fa-chart-line" style="color:#4ade80;"></i>
+        </div>
+        <h3 style="font-weight:700;margin-bottom:8px;font-size:1rem;">Metrics & Performance Visibility</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.65;">Historical charts for both host and container metrics. Select custom time ranges for trend analysis, capacity planning, and SLA reporting. Built on Elasticsearch for fast query performance.</p>
+        <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="background:rgba(34,197,94,0.1);color:#86efac;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Historical charts</span>
+          <span style="background:rgba(34,197,94,0.1);color:#86efac;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Custom ranges</span>
+          <span style="background:rgba(34,197,94,0.1);color:#86efac;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Elasticsearch</span>
+        </div>
+      </div>
+
+      <!-- F5 -->
+      <div class="card p-6 fade-up">
+        <div class="icon-circle mb-4" style="background:rgba(239,68,68,0.12);">
+          <i class="fa fa-bell" style="color:#f87171;"></i>
+        </div>
+        <h3 style="font-weight:700;margin-bottom:8px;font-size:1rem;">Alerting & Notifications</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.65;">Threshold-based alerts for CPU, memory, and disk usage. Service health and TLS certificate expiry alerts. Email notifications for critical events — know before your users do.</p>
+        <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="background:rgba(239,68,68,0.1);color:#fca5a5;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Threshold alerts</span>
+          <span style="background:rgba(239,68,68,0.1);color:#fca5a5;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Email integration</span>
+          <span style="background:rgba(239,68,68,0.1);color:#fca5a5;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Cert expiry</span>
+        </div>
+      </div>
+
+      <!-- F6 -->
+      <div class="card p-6 fade-up">
+        <div class="icon-circle mb-4" style="background:rgba(168,85,247,0.12);">
+          <i class="fa fa-certificate" style="color:#c084fc;"></i>
+        </div>
+        <h3 style="font-weight:700;margin-bottom:8px;font-size:1rem;">Service & Certificate Monitoring</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.65;">Discover and track systemd services. Monitor TLS certificate validity with remaining-days countdown. Proactive alerts prevent the silent certificate expirations that cause unexpected outages.</p>
+        <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="background:rgba(168,85,247,0.1);color:#d8b4fe;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Systemd discovery</span>
+          <span style="background:rgba(168,85,247,0.1);color:#d8b4fe;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">TLS tracking</span>
+          <span style="background:rgba(168,85,247,0.1);color:#d8b4fe;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Days remaining</span>
+        </div>
+      </div>
+
+      <!-- F7 -->
+      <div class="card p-6 fade-up">
+        <div class="icon-circle mb-4" style="background:rgba(245,158,11,0.12);">
+          <i class="fa fa-shield-halved" style="color:#fbbf24;"></i>
+        </div>
+        <h3 style="font-weight:700;margin-bottom:8px;font-size:1rem;">Security & Access Control (RBAC)</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.65;">JWT-based authentication with four role tiers: SuperAdmin, Admin, Operator, and Viewer. Fine-grained permission controls gate every UI action, preventing unauthorized operations at the framework level.</p>
+        <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="background:rgba(245,158,11,0.1);color:#fde68a;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">JWT auth</span>
+          <span style="background:rgba(245,158,11,0.1);color:#fde68a;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">4 role tiers</span>
+          <span style="background:rgba(245,158,11,0.1);color:#fde68a;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Permission-gated UI</span>
+        </div>
+      </div>
+
+      <!-- F8 -->
+      <div class="card p-6 fade-up">
+        <div class="icon-circle mb-4" style="background:rgba(20,184,166,0.12);">
+          <i class="fa fa-sliders" style="color:#2dd4bf;"></i>
+        </div>
+        <h3 style="font-weight:700;margin-bottom:8px;font-size:1rem;">Agent Configuration & Control</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.65;">Configure heartbeat intervals, refresh cadence, and monitoring thresholds per environment. Push configuration changes from backend to agent dynamically over WebSocket — no restarts required.</p>
+        <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="background:rgba(20,184,166,0.1);color:#99f6e4;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Dynamic config</span>
+          <span style="background:rgba(20,184,166,0.1);color:#99f6e4;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Per-environment</span>
+          <span style="background:rgba(20,184,166,0.1);color:#99f6e4;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">WebSocket push</span>
+        </div>
+      </div>
+
+      <!-- F9 -->
+      <div class="card p-6 fade-up">
+        <div class="icon-circle mb-4" style="background:rgba(99,102,241,0.12);">
+          <i class="fa fa-database" style="color:#818cf8;"></i>
+        </div>
+        <h3 style="font-weight:700;margin-bottom:8px;font-size:1rem;">Data Retention & Scalability</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.65;">Configurable retention windows for logs and metrics. Built on MongoDB + Elasticsearch for scalable telemetry pipelines. Designed for growing infrastructure without architectural rewrites.</p>
+        <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="background:rgba(99,102,241,0.1);color:#c7d2fe;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Configurable retention</span>
+          <span style="background:rgba(99,102,241,0.1);color:#c7d2fe;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">MongoDB</span>
+          <span style="background:rgba(99,102,241,0.1);color:#c7d2fe;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;">Elasticsearch</span>
+        </div>
+      </div>
+
+    </div><!-- /feature grid -->
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+
+<!-- ═══════════════════════════════════════════
+     HOW IT WORKS
+════════════════════════════════════════════ -->
+<section class="section" id="how">
+  <div class="container">
+    <div class="text-center mb-12 fade-up">
+      <p class="section-eyebrow mb-3">Architecture & Flow</p>
+      <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;line-height:1.2;margin-bottom:16px;">
+        How <span class="gradient-text">Server Monitor</span> Works
+      </h2>
+      <p style="color:#94a3b8;max-width:520px;margin:0 auto;">
+        A lightweight, event-driven architecture connects your remote hosts to the central platform in minutes.
+      </p>
+    </div>
+
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;position:relative;">
+
+      <!-- connector lines (desktop) -->
+      <style>
+        @media (min-width: 768px) {
+          .step-item:not(:last-child)::after {
+            content:'';
+            position:absolute;
+            top:26px;
+            right:-24px;
+            width:48px;
+            height:2px;
+            background:linear-gradient(90deg,rgba(79,70,229,0.5),rgba(6,182,212,0.5));
+            z-index:1;
+          }
+        }
+      </style>
+
+      <div class="step-item fade-up" style="position:relative;text-align:center;padding:24px 20px;">
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#6366f1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:800;font-size:18px;color:#fff;z-index:2;position:relative;">1</div>
+        <h4 style="font-weight:700;margin-bottom:8px;font-size:15px;">Deploy Agent</h4>
+        <p style="color:#94a3b8;font-size:13px;line-height:1.6;">Install the lightweight Python agent on each Docker host via systemd. Starts in minutes.</p>
+      </div>
+
+      <div class="step-item fade-up" style="position:relative;text-align:center;padding:24px 20px;">
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#0ea5e9,#06b6d4);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:800;font-size:18px;color:#fff;z-index:2;position:relative;">2</div>
+        <h4 style="font-weight:700;margin-bottom:8px;font-size:15px;">Connect to Platform</h4>
+        <p style="color:#94a3b8;font-size:13px;line-height:1.6;">Agent connects to the FastAPI backend via WebSocket, authenticates, and begins streaming telemetry.</p>
+      </div>
+
+      <div class="step-item fade-up" style="position:relative;text-align:center;padding:24px 20px;">
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#d946ef,#a855f7);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:800;font-size:18px;color:#fff;z-index:2;position:relative;">3</div>
+        <h4 style="font-weight:700;margin-bottom:8px;font-size:15px;">Data Stored</h4>
+        <p style="color:#94a3b8;font-size:13px;line-height:1.6;">Metrics, logs, events and container state are persisted in MongoDB and Elasticsearch with configurable retention.</p>
+      </div>
+
+      <div class="step-item fade-up" style="position:relative;text-align:center;padding:24px 20px;">
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:800;font-size:18px;color:#fff;z-index:2;position:relative;">4</div>
+        <h4 style="font-weight:700;margin-bottom:8px;font-size:15px;">Alerts Triggered</h4>
+        <p style="color:#94a3b8;font-size:13px;line-height:1.6;">Threshold and health-check rules evaluate incoming telemetry and fire email alerts when conditions are met.</p>
+      </div>
+
+      <div class="step-item fade-up" style="position:relative;text-align:center;padding:24px 20px;">
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:800;font-size:18px;color:#fff;z-index:2;position:relative;">5</div>
+        <h4 style="font-weight:700;margin-bottom:8px;font-size:15px;">Operate from Dashboard</h4>
+        <p style="color:#94a3b8;font-size:13px;line-height:1.6;">Your team takes action — restart containers, stream logs, adjust config — all from the React dashboard. RBAC ensures only authorized actions proceed.</p>
+      </div>
+    </div>
+
+    <!-- Tech stack -->
+    <div class="card p-8 mt-8 fade-up">
+      <h3 class="text-center font-bold mb-6" style="font-size:1rem;color:#94a3b8;">Technology Stack</h3>
+      <div class="flex justify-center" style="flex-wrap:wrap;gap:24px;align-items:center;">
+        <div style="text-align:center;">
+          <div style="font-size:28px;margin-bottom:6px;">⚛️</div>
+          <div style="font-size:12px;font-weight:600;color:#60a5fa;">React</div>
+          <div style="font-size:11px;color:#475569;">Frontend</div>
+        </div>
+        <div style="color:#334155;font-size:20px;">+</div>
+        <div style="text-align:center;">
+          <div style="font-size:28px;margin-bottom:6px;">🐍</div>
+          <div style="font-size:12px;font-weight:600;color:#4ade80;">FastAPI</div>
+          <div style="font-size:11px;color:#475569;">Backend</div>
+        </div>
+        <div style="color:#334155;font-size:20px;">+</div>
+        <div style="text-align:center;">
+          <div style="font-size:28px;margin-bottom:6px;">🍃</div>
+          <div style="font-size:12px;font-weight:600;color:#86efac;">MongoDB</div>
+          <div style="font-size:11px;color:#475569;">Primary DB</div>
+        </div>
+        <div style="color:#334155;font-size:20px;">+</div>
+        <div style="text-align:center;">
+          <div style="font-size:28px;margin-bottom:6px;">🔍</div>
+          <div style="font-size:12px;font-weight:600;color:#fbbf24;">Elasticsearch</div>
+          <div style="font-size:11px;color:#475569;">Metrics & Logs</div>
+        </div>
+        <div style="color:#334155;font-size:20px;">+</div>
+        <div style="text-align:center;">
+          <div style="font-size:28px;margin-bottom:6px;">🐳</div>
+          <div style="font-size:12px;font-weight:600;color:#38bdf8;">Docker Compose</div>
+          <div style="font-size:11px;color:#475569;">Deployment</div>
+        </div>
+        <div style="color:#334155;font-size:20px;">+</div>
+        <div style="text-align:center;">
+          <div style="font-size:28px;margin-bottom:6px;">⚡</div>
+          <div style="font-size:12px;font-weight:600;color:#c084fc;">WebSocket</div>
+          <div style="font-size:11px;color:#475569;">Real-time</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     USE CASES
+════════════════════════════════════════════ -->
+<section class="section" id="usecases" style="background:#0d1526;">
+  <div class="container">
+    <div class="text-center mb-12 fade-up">
+      <p class="section-eyebrow mb-3">Built For Your Team</p>
+      <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;line-height:1.2;margin-bottom:16px;">
+        Who Uses <span class="gradient-text">Server Monitor</span>?
+      </h2>
+    </div>
+
+    <div class="grid grid-2" style="gap:24px;">
+      <div class="card p-8 fade-up">
+        <div style="font-size:36px;margin-bottom:16px;">🏢</div>
+        <h3 style="font-weight:700;margin-bottom:12px;font-size:1.1rem;">Managed Service Providers (MSPs)</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.7;margin-bottom:16px;">Manage multiple client environments from one pane of glass. Offer proactive uptime SLAs backed by real alerting. Differentiate your services with enterprise-grade Docker visibility that clients can verify themselves.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+          <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;margin-top:2px;">✓</span> Multi-tenant environment isolation</li>
+          <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;margin-top:2px;">✓</span> Client-specific dashboards via RBAC</li>
+          <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;margin-top:2px;">✓</span> Automated alerting reduces manual checks</li>
+        </ul>
+      </div>
+
+      <div class="card p-8 fade-up">
+        <div style="font-size:36px;margin-bottom:16px;">🚀</div>
+        <h3 style="font-weight:700;margin-bottom:12px;font-size:1.1rem;">SaaS & Product Engineering Teams</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.7;margin-bottom:16px;">Keep your containerized product running with confidence. Ship faster knowing your engineers have instant visibility into production. Reduce on-call fatigue with proactive alerts instead of reactive incidents.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+          <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;margin-top:2px;">✓</span> Real-time container and service health</li>
+          <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;margin-top:2px;">✓</span> Log streaming for fast incident diagnosis</li>
+          <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;margin-top:2px;">✓</span> Historical metrics for capacity planning</li>
+        </ul>
+      </div>
+
+      <div class="card p-8 fade-up">
+        <div style="font-size:36px;margin-bottom:16px;">🏗️</div>
+        <h3 style="font-weight:700;margin-bottom:12px;font-size:1.1rem;">Enterprise & Hybrid Infrastructure Teams</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.7;margin-bottom:16px;">Bring order to complex hybrid infrastructure spanning cloud VMs and on-premises servers. Governance requirements are met through RBAC, audit-ready access controls, and permission-gated operations.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+          <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;margin-top:2px;">✓</span> Self-hosted for data sovereignty</li>
+          <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;margin-top:2px;">✓</span> Role-based governance across teams</li>
+          <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;margin-top:2px;">✓</span> Supports on-prem and cloud nodes</li>
+        </ul>
+      </div>
+
+      <div class="card p-8 fade-up">
+        <div style="font-size:36px;margin-bottom:16px;">🔧</div>
+        <h3 style="font-weight:700;margin-bottom:12px;font-size:1.1rem;">DevOps & Platform Engineering Teams</h3>
+        <p style="color:#94a3b8;font-size:14px;line-height:1.7;margin-bottom:16px;">Replace fragmented tools (Grafana + Kibana + SSH + Ansible + Slack) with one unified platform. Spend less time maintaining monitoring infrastructure and more time building platform improvements.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+          <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;margin-top:2px;">✓</span> Eliminate tool sprawl</li>
+          <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;margin-top:2px;">✓</span> One platform: observe, operate, alert</li>
+          <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;margin-top:2px;">✓</span> Lightweight agent, minimal footprint</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     PRICING
+════════════════════════════════════════════ -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="text-center mb-8 fade-up">
+      <p class="section-eyebrow mb-3">Transparent Pricing</p>
+      <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;line-height:1.2;margin-bottom:16px;">
+        Simple, Scalable Pricing for <span class="gradient-text">Every Team</span>
+      </h2>
+      <p style="color:#94a3b8;max-width:520px;margin:0 auto 28px;">
+        Available as a managed cloud SaaS or a self-hosted on-premises deployment.
+        Both options support your current infrastructure and grow with your team.
+      </p>
+
+      <!-- Deployment tab -->
+      <div class="flex justify-center gap-2 mb-8" style="gap:8px;">
+        <button class="tab-btn pricing-tab active" data-tab="pricing-cloud" onclick="">☁️ Cloud (SaaS)</button>
+        <button class="tab-btn pricing-tab"        data-tab="pricing-onprem">🏢 On-Premises</button>
+      </div>
+    </div>
+
+    <!-- ── CLOUD PRICING ─────────────────────── -->
+    <div id="pricing-cloud" class="pricing-section fade-up">
+
+      <!-- Billing toggle -->
+      <div class="flex justify-center items-center gap-3 mb-10" style="gap:12px;">
+        <span id="label-monthly" style="font-size:14px;font-weight:600;color:#e2e8f0;">Monthly</span>
+        <div id="billing-toggle" class="pricing-toggle-track" role="switch" aria-checked="false" tabindex="0">
+          <div class="pricing-toggle-thumb"></div>
+        </div>
+        <span id="label-yearly" style="font-size:14px;font-weight:600;color:#e2e8f0;opacity:0.45;">
+          Yearly <span class="savings-badge" style="display:none;">Save 20%</span>
+        </span>
+      </div>
+
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:1100px;margin:0 auto;">
+
+        <!-- Starter -->
+        <div class="pricing-card p-8">
+          <div class="mb-2" style="font-size:13px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;">Starter</div>
+          <div style="margin-bottom:6px;">
+            <span class="price-currency">$</span>
+            <span class="price-amount" data-monthly="49" data-yearly="39">49</span>
+            <span class="price-period">/ month</span>
+          </div>
+          <div style="font-size:12px;color:#475569;margin-bottom:24px;">Billed <span data-monthly="monthly" data-yearly="annually">monthly</span>&nbsp;·&nbsp;<span class="yearly-savings savings-badge" style="display:none;">Save $120/yr</span></div>
+          <p style="font-size:13px;color:#94a3b8;margin-bottom:24px;">Perfect for small teams getting started with centralised Docker visibility.</p>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Up to <strong>5 users</strong></li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Up to <strong>5 environments</strong></li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Container operations</li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Real-time logs</li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Basic metrics (7-day retention)</li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Email alerts</li>
+            <li style="font-size:14px;color:#94a3b8;"><i class="fa fa-xmark feature-cross"></i>RBAC (basic — 2 roles)</li>
+            <li style="font-size:14px;color:#94a3b8;"><i class="fa fa-xmark feature-cross"></i>Certificate monitoring</li>
+            <li style="font-size:14px;color:#94a3b8;"><i class="fa fa-xmark feature-cross"></i>Priority support</li>
+          </ul>
+          <a href="#contact" class="btn-outline w-full" style="justify-content:center;width:100%;display:flex;">Get Started</a>
+        </div>
+
+        <!-- Professional (popular) -->
+        <div class="pricing-card popular p-8">
+          <div class="flex items-center justify-between mb-2">
+            <div style="font-size:13px;font-weight:600;color:#818cf8;text-transform:uppercase;letter-spacing:0.08em;">Professional</div>
+            <span class="popular-badge">Most Popular</span>
+          </div>
+          <div style="margin-bottom:6px;">
+            <span class="price-currency" style="color:#818cf8;">$</span>
+            <span class="price-amount gradient-text" data-monthly="149" data-yearly="119">149</span>
+            <span class="price-period">/ month</span>
+          </div>
+          <div style="font-size:12px;color:#475569;margin-bottom:24px;">Billed <span data-monthly="monthly" data-yearly="annually">monthly</span>&nbsp;·&nbsp;<span class="yearly-savings savings-badge" style="display:none;">Save $360/yr</span></div>
+          <p style="font-size:13px;color:#94a3b8;margin-bottom:24px;">For growing engineering teams that need full observability and governance.</p>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Up to <strong>20 users</strong></li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Up to <strong>20 environments</strong></li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>All container operations</li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Live + historical logs (30-day)</li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Full metrics (30-day retention)</li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Advanced alerting + notifications</li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Full RBAC (4 role tiers)</li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Certificate & service monitoring</li>
+            <li style="font-size:14px;color:#94a3b8;"><i class="fa fa-xmark feature-cross"></i>Dedicated support SLA</li>
+          </ul>
+          <a href="#contact" class="btn-primary w-full" style="justify-content:center;width:100%;display:flex;">Start Free Trial</a>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="pricing-card p-8">
+          <div class="mb-2" style="font-size:13px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;">Enterprise</div>
+          <div style="margin-bottom:6px;">
+            <span class="price-currency">$</span>
+            <span class="price-amount" data-monthly="399" data-yearly="319">399</span>
+            <span class="price-period">/ month</span>
+          </div>
+          <div style="font-size:12px;color:#475569;margin-bottom:24px;">Billed <span data-monthly="monthly" data-yearly="annually">monthly</span>&nbsp;·&nbsp;<span class="yearly-savings savings-badge" style="display:none;">Save $960/yr</span></div>
+          <p style="font-size:13px;color:#94a3b8;margin-bottom:24px;">For enterprises requiring unlimited scale, SLAs, and dedicated support.</p>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i><strong>Unlimited users</strong></li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i><strong>Unlimited environments</strong></li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Everything in Professional</li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>90-day log & metrics retention</li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Custom alert integrations</li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>SSO / SAML support</li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Dedicated onboarding engineer</li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>99.9% uptime SLA</li>
+            <li style="font-size:14px;color:#cbd5e1;"><i class="fa fa-check feature-check"></i>Priority 4-hour support SLA</li>
+          </ul>
+          <a href="#contact" class="btn-outline w-full" style="justify-content:center;width:100%;display:flex;">Contact Sales</a>
+        </div>
+
+      </div>
+
+      <!-- Cloud comparison note -->
+      <div class="text-center mt-8">
+        <p style="font-size:13px;color:#475569;">All Cloud plans include automatic upgrades, managed infrastructure, and 14-day free trial. No credit card required to start.</p>
+      </div>
+
+    </div><!-- /pricing-cloud -->
+
+
+    <!-- ── ON-PREM PRICING ───────────────────── -->
+    <div id="pricing-onprem" class="pricing-section fade-up" style="display:none;">
+
+      <div class="card p-2 fade-up" style="max-width:900px;margin:0 auto;overflow:hidden;">
+
+        <!-- Header -->
+        <div class="onprem-row" style="background:rgba(79,70,229,0.08);border-bottom:1px solid var(--surface-border);">
+          <div style="font-size:13px;font-weight:700;color:#a5b4fc;">User Pack</div>
+          <div style="font-size:13px;font-weight:700;color:#a5b4fc;" class="hide-mobile">Environments</div>
+          <div style="font-size:13px;font-weight:700;color:#a5b4fc;">Annual License</div>
+          <div style="font-size:13px;font-weight:700;color:#a5b4fc;text-align:right;"></div>
+        </div>
+
+        <!-- 10 users -->
+        <div class="onprem-row">
+          <div>
+            <div style="font-weight:700;font-size:15px;color:#e2e8f0;">10-User Pack</div>
+            <div style="font-size:12px;color:#64748b;margin-top:2px;">Up to 10 named users, 1 team</div>
+          </div>
+          <div class="hide-mobile" style="color:#94a3b8;font-size:14px;">Up to 10 hosts</div>
+          <div>
+            <span style="font-weight:800;font-size:18px;color:#818cf8;">$1,499</span>
+            <span style="font-size:12px;color:#475569;">/ year</span>
+          </div>
+          <div style="text-align:right;">
+            <a href="#contact" class="btn-outline" style="padding:8px 16px;font-size:13px;">Enquire</a>
+          </div>
+        </div>
+
+        <!-- 20 users -->
+        <div class="onprem-row" style="background:rgba(79,70,229,0.04);">
+          <div>
+            <div style="font-weight:700;font-size:15px;color:#e2e8f0;">20-User Pack</div>
+            <div style="font-size:12px;color:#64748b;margin-top:2px;">Up to 20 named users, 2 teams</div>
+          </div>
+          <div class="hide-mobile" style="color:#94a3b8;font-size:14px;">Up to 25 hosts</div>
+          <div>
+            <span style="font-weight:800;font-size:18px;color:#818cf8;">$2,699</span>
+            <span style="font-size:12px;color:#475569;">/ year</span>
+            <div class="savings-badge" style="display:inline-block;margin-left:6px;">Best Value</div>
+          </div>
+          <div style="text-align:right;">
+            <a href="#contact" class="btn-primary" style="padding:8px 16px;font-size:13px;">Enquire</a>
+          </div>
+        </div>
+
+        <!-- 50 users -->
+        <div class="onprem-row">
+          <div>
+            <div style="font-weight:700;font-size:15px;color:#e2e8f0;">50-User Pack</div>
+            <div style="font-size:12px;color:#64748b;margin-top:2px;">Up to 50 named users, multi-team</div>
+          </div>
+          <div class="hide-mobile" style="color:#94a3b8;font-size:14px;">Up to 50 hosts</div>
+          <div>
+            <span style="font-weight:800;font-size:18px;color:#818cf8;">$5,499</span>
+            <span style="font-size:12px;color:#475569;">/ year</span>
+          </div>
+          <div style="text-align:right;">
+            <a href="#contact" class="btn-outline" style="padding:8px 16px;font-size:13px;">Enquire</a>
+          </div>
+        </div>
+
+        <!-- 100 users -->
+        <div class="onprem-row" style="background:rgba(79,70,229,0.04);">
+          <div>
+            <div style="font-weight:700;font-size:15px;color:#e2e8f0;">100-User Pack</div>
+            <div style="font-size:12px;color:#64748b;margin-top:2px;">Up to 100 named users, enterprise</div>
+          </div>
+          <div class="hide-mobile" style="color:#94a3b8;font-size:14px;">Unlimited hosts</div>
+          <div>
+            <span style="font-weight:800;font-size:18px;color:#818cf8;">$9,499</span>
+            <span style="font-size:12px;color:#475569;">/ year</span>
+          </div>
+          <div style="text-align:right;">
+            <a href="#contact" class="btn-outline" style="padding:8px 16px;font-size:13px;">Enquire</a>
+          </div>
+        </div>
+
+        <!-- Custom -->
+        <div class="onprem-row" style="background:linear-gradient(90deg,rgba(79,70,229,0.08),rgba(6,182,212,0.05));">
+          <div>
+            <div style="font-weight:700;font-size:15px;color:#e2e8f0;">Custom Enterprise Pack</div>
+            <div style="font-size:12px;color:#64748b;margin-top:2px;">200+ users, OEM, white-label options</div>
+          </div>
+          <div class="hide-mobile" style="color:#94a3b8;font-size:14px;">Unlimited</div>
+          <div>
+            <span style="font-weight:700;font-size:16px;color:#22d3ee;">Contact for Pricing</span>
+          </div>
+          <div style="text-align:right;">
+            <a href="#contact" class="btn-primary" style="padding:8px 16px;font-size:13px;">Talk to Sales</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- On-prem includes -->
+      <div style="max-width:900px;margin:32px auto 0;">
+        <div class="card p-6">
+          <h4 style="font-weight:700;margin-bottom:16px;font-size:15px;">All On-Premises Licences Include:</h4>
+          <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
+            <div style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;">✓</span> Full source deployment package</div>
+            <div style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;">✓</span> Docker Compose backend stack</div>
+            <div style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;">✓</span> Systemd agent installer script</div>
+            <div style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;">✓</span> 1 year of bug-fix updates</div>
+            <div style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;">✓</span> Installation & onboarding support</div>
+            <div style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:flex-start;"><span style="color:#22c55e;">✓</span> Data stays on your infrastructure</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-6">
+        <p style="font-size:13px;color:#475569;">On-premises licences are perpetual annual subscriptions. Renewal discounts apply from year 2 onwards. Supports both private cloud VMs and bare-metal servers.</p>
+      </div>
+
+    </div><!-- /pricing-onprem -->
+
+    <!-- Cloud vs On-prem comparison -->
+    <div class="mt-8 fade-up" style="max-width:900px;margin:48px auto 0;">
+      <h3 style="font-weight:700;font-size:1.1rem;text-align:center;margin-bottom:24px;color:#94a3b8;">Cloud vs. On-Premises — At a Glance</h3>
+      <div style="overflow-x:auto;border-radius:16px;border:1px solid var(--surface-border);">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Aspect</th>
+              <th>☁️ Cloud (SaaS)</th>
+              <th>🏢 On-Premises</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:#94a3b8;">Setup time</td>
+              <td style="color:#4ade80;">Minutes — fully managed</td>
+              <td style="color:#fbbf24;">Hours — self-operated</td>
+            </tr>
+            <tr>
+              <td style="color:#94a3b8;">Data location</td>
+              <td style="color:#fbbf24;">ProbePlus-managed cloud</td>
+              <td style="color:#4ade80;">Your own infrastructure</td>
+            </tr>
+            <tr>
+              <td style="color:#94a3b8;">Automatic upgrades</td>
+              <td style="color:#4ade80;">Yes — always latest</td>
+              <td style="color:#94a3b8;">Manual (annual update pack)</td>
+            </tr>
+            <tr>
+              <td style="color:#94a3b8;">Pricing model</td>
+              <td style="color:#94a3b8;">Monthly / Yearly subscription</td>
+              <td style="color:#94a3b8;">Annual licence by user batch</td>
+            </tr>
+            <tr>
+              <td style="color:#94a3b8;">Data sovereignty</td>
+              <td style="color:#fbbf24;">Limited (cloud region)</td>
+              <td style="color:#4ade80;">Full — your network, your rules</td>
+            </tr>
+            <tr>
+              <td style="color:#94a3b8;">SLA guarantee</td>
+              <td style="color:#4ade80;">99.9% (Enterprise tier)</td>
+              <td style="color:#94a3b8;">Depends on your infra</td>
+            </tr>
+            <tr>
+              <td style="color:#94a3b8;">Compliance fit</td>
+              <td style="color:#fbbf24;">Good</td>
+              <td style="color:#4ade80;">Best (air-gapped possible)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECURITY & DEPLOYMENT
+════════════════════════════════════════════ -->
+<section style="background:#0d1526;padding:80px 0;">
+  <div class="container">
+    <div class="grid grid-2" style="gap:32px;align-items:center;">
+
+      <div class="fade-up">
+        <p class="section-eyebrow mb-3">Security First</p>
+        <h2 style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;line-height:1.2;margin-bottom:20px;">
+          Enterprise-Grade Security<br/><span class="gradient-text">Built In, Not Bolted On</span>
+        </h2>
+        <p style="color:#94a3b8;line-height:1.7;margin-bottom:24px;">
+          Every action in Server Monitor is controlled by a layered security model. From JWT-based session authentication to granular per-action permission gates, your infrastructure is protected at every layer.
+        </p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;">
+          <li style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:32px;height:32px;border-radius:8px;background:rgba(79,70,229,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">🔐</div>
+            <div>
+              <div style="font-weight:600;font-size:14px;margin-bottom:3px;">JWT Authentication</div>
+              <div style="font-size:13px;color:#64748b;">Stateless, secure token-based authentication for all API and WebSocket sessions.</div>
+            </div>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:32px;height:32px;border-radius:8px;background:rgba(34,197,94,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">👥</div>
+            <div>
+              <div style="font-weight:600;font-size:14px;margin-bottom:3px;">Four-Tier RBAC</div>
+              <div style="font-size:13px;color:#64748b;">SuperAdmin → Admin → Operator → Viewer. Permission-gated UI elements prevent unauthorised actions.</div>
+            </div>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:32px;height:32px;border-radius:8px;background:rgba(6,182,212,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">🔒</div>
+            <div>
+              <div style="font-weight:600;font-size:14px;margin-bottom:3px;">Encrypted Transport</div>
+              <div style="font-size:13px;color:#64748b;">All telemetry between agent and backend travels over TLS-encrypted WebSocket and HTTPS.</div>
+            </div>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:32px;height:32px;border-radius:8px;background:rgba(168,85,247,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">📋</div>
+            <div>
+              <div style="font-weight:600;font-size:14px;margin-bottom:3px;">Audit-Ready Operations</div>
+              <div style="font-size:13px;color:#64748b;">All container operations and config changes are traceable to specific users and timestamps.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="fade-up">
+        <p class="section-eyebrow mb-3">Deployment</p>
+        <h2 style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;line-height:1.2;margin-bottom:20px;">
+          Deploy in Minutes,<br/><span class="gradient-text">Scale Without Limits</span>
+        </h2>
+        <p style="color:#94a3b8;line-height:1.7;margin-bottom:24px;">
+          The backend stack runs as a Docker Compose service. The lightweight Python agent installs via a single systemd command on any Linux host — cloud VM, bare-metal, or private cloud.
+        </p>
+        <div class="card p-6" style="font-family:'Courier New',monospace;font-size:13px;color:#4ade80;line-height:2;">
+          <div style="color:#475569;margin-bottom:8px;"># Backend (one command)</div>
+          <div>$ docker compose up -d</div>
+          <div style="color:#475569;margin-top:12px;margin-bottom:8px;"># Agent on each host</div>
+          <div>$ curl -sSL install.sh | bash</div>
+          <div>$ systemctl enable --now sm-agent</div>
+          <div style="color:#22d3ee;margin-top:16px;">✓ Dashboard live in &lt; 5 minutes</div>
+        </div>
+        <div class="flex gap-4 mt-4" style="flex-wrap:wrap;gap:12px;margin-top:16px;">
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b;">
+            <i class="fa fa-check" style="color:#22c55e;"></i> AWS / GCP / Azure
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b;">
+            <i class="fa fa-check" style="color:#22c55e;"></i> Bare-metal Linux
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b;">
+            <i class="fa fa-check" style="color:#22c55e;"></i> Private cloud / VMware
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b;">
+            <i class="fa fa-check" style="color:#22c55e;"></i> Air-gapped environments
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     CONTACT / QUERY
+════════════════════════════════════════════ -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="grid grid-2" style="gap:48px;align-items:start;max-width:1000px;margin:0 auto;">
+
+      <!-- Left: info -->
+      <div class="fade-up">
+        <p class="section-eyebrow mb-3">Get in Touch</p>
+        <h2 style="font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:800;line-height:1.2;margin-bottom:20px;">
+          Ready to Take Control of<br/><span class="gradient-text">Your Infrastructure?</span>
+        </h2>
+        <p style="color:#94a3b8;line-height:1.7;margin-bottom:32px;">
+          Whether you're evaluating Server Monitor for your team, need a pilot deployment, or want a full demo — we're ready to help. Reach out and our team will respond within one business day.
+        </p>
+
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:40px;height:40px;border-radius:10px;background:rgba(79,70,229,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <i class="fa fa-envelope" style="color:#818cf8;"></i>
+            </div>
+            <div>
+              <div style="font-weight:600;font-size:14px;margin-bottom:3px;">Email Us Directly</div>
+              <a href="mailto:deepak@probeplus.in" style="color:#22d3ee;font-size:14px;text-decoration:none;">deepak@probeplus.in</a>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:40px;height:40px;border-radius:10px;background:rgba(6,182,212,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <i class="fa fa-clock" style="color:#22d3ee;"></i>
+            </div>
+            <div>
+              <div style="font-weight:600;font-size:14px;margin-bottom:3px;">Response Time</div>
+              <div style="color:#64748b;font-size:14px;">Within 1 business day</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:40px;height:40px;border-radius:10px;background:rgba(34,197,94,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <i class="fa fa-handshake" style="color:#4ade80;"></i>
+            </div>
+            <div>
+              <div style="font-weight:600;font-size:14px;margin-bottom:3px;">What We Offer</div>
+              <div style="color:#64748b;font-size:14px;">Demo · Pilot deployment · Solutions engineering · Custom quotes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div class="card p-8 fade-up">
+        <h3 style="font-weight:700;font-size:1.1rem;margin-bottom:24px;">Send Us a Query</h3>
+        <form id="contact-form" novalidate>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+            <div>
+              <label for="cf-name" class="form-label">Full Name <span style="color:#ef4444;">*</span></label>
+              <input type="text" id="cf-name" class="form-input" placeholder="Jane Smith" required />
+            </div>
+            <div>
+              <label for="cf-email" class="form-label">Work Email <span style="color:#ef4444;">*</span></label>
+              <input type="email" id="cf-email" class="form-input" placeholder="jane@company.com" required />
+            </div>
+          </div>
+          <div style="margin-bottom:16px;">
+            <label for="cf-company" class="form-label">Company / Organisation</label>
+            <input type="text" id="cf-company" class="form-input" placeholder="Acme Corp" />
+          </div>
+          <div style="margin-bottom:16px;">
+            <label for="cf-plan" class="form-label">I'm interested in</label>
+            <select id="cf-plan" class="form-input">
+              <option value="Cloud Starter">Cloud — Starter Plan</option>
+              <option value="Cloud Professional">Cloud — Professional Plan</option>
+              <option value="Cloud Enterprise">Cloud — Enterprise Plan</option>
+              <option value="On-Prem 10 Users">On-Premises — 10-User Pack</option>
+              <option value="On-Prem 20 Users">On-Premises — 20-User Pack</option>
+              <option value="On-Prem 50 Users">On-Premises — 50-User Pack</option>
+              <option value="On-Prem 100 Users">On-Premises — 100-User Pack</option>
+              <option value="Custom / Enterprise">Custom / Enterprise Quote</option>
+              <option value="Demo">Request a Demo</option>
+            </select>
+          </div>
+          <div style="margin-bottom:24px;">
+            <label for="cf-message" class="form-label">Your Query</label>
+            <textarea id="cf-message" class="form-input" rows="4" placeholder="Tell us about your infrastructure, team size, and what you're looking to achieve…"></textarea>
+          </div>
+          <button type="submit" class="btn-primary w-full" style="width:100%;justify-content:center;font-size:15px;">
+            <i class="fa fa-paper-plane"></i> Send Query
+          </button>
+          <p style="font-size:11px;color:#475569;text-align:center;margin-top:12px;">
+            By submitting this form you agree to be contacted by the Server Monitor team regarding your enquiry.
+          </p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer style="background:#070e1c;border-top:1px solid #1e293b;padding:60px 0 32px;">
+  <div class="container">
+    <div class="grid" style="grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;">
+
+      <div>
+        <a href="#" style="display:flex;align-items:center;gap:10px;text-decoration:none;margin-bottom:16px;">
+          <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#4f46e5,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:16px;">🖥</div>
+          <span style="font-weight:800;font-size:16px;color:#f1f5f9;">Server<span style="color:#818cf8;">Monitor</span></span>
+        </a>
+        <p style="font-size:13px;color:#475569;line-height:1.7;max-width:260px;">
+          Enterprise-ready Docker monitoring and management platform. Self-hosted or cloud-deployed.
+        </p>
+        <div style="margin-top:16px;">
+          <a href="mailto:deepak@probeplus.in" style="font-size:13px;color:#22d3ee;text-decoration:none;display:flex;align-items:center;gap:6px;">
+            <i class="fa fa-envelope"></i> deepak@probeplus.in
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h4 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#475569;margin-bottom:16px;">Product</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Request Demo</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#475569;margin-bottom:16px;">Use Cases</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li><a href="#usecases">MSPs</a></li>
+          <li><a href="#usecases">SaaS Teams</a></li>
+          <li><a href="#usecases">Enterprise</a></li>
+          <li><a href="#usecases">DevOps Teams</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#475569;margin-bottom:16px;">Company</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="mailto:deepak@probeplus.in">Sales</a></li>
+          <li><a href="mailto:deepak@probeplus.in">Support</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div style="border-top:1px solid #1e293b;padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <p style="font-size:12px;color:#334155;">© 2026 ProbePlus. Server Monitor. All rights reserved.</p>
+      <p style="font-size:12px;color:#334155;">Built for DevOps teams who demand operational excellence.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     TOAST
+════════════════════════════════════════════ -->
+<div id="toast" role="status" aria-live="polite">
+  <i class="fa fa-circle-check" style="font-size:16px;"></i>
+  <span id="toast-msg"></span>
+</div>
+
+<!-- App JS -->
+<script src="assets/app.js"></script>
+
+<!-- Mobile responsive grid overrides -->
+<style>
+@media (max-width: 900px) {
+  footer .grid { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 600px) {
+  footer .grid { grid-template-columns: 1fr !important; }
+  #contact .grid { grid-template-columns: 1fr !important; }
+  .grid-2 { grid-template-columns: 1fr !important; }
+}
+</style>
+
+</body>
+</html>
