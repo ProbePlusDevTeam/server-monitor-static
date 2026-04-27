@@ -179,6 +179,8 @@ body {
   transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .pricing-card:hover {
   transform: translateY(-6px);

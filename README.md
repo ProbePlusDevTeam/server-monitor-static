@@ -32,18 +32,18 @@ A fully self-contained static website showcasing the **Server Monitor** platform
 
 | Plan | Monthly | Yearly |
 |---|---|---|
-| Starter (5 users) | $49/mo | $39/mo |
-| Professional (20 users) | $149/mo | $119/mo |
-| Enterprise (unlimited) | $399/mo | $319/mo |
+| Starter (5 users) | $19/mo | $15/mo |
+| Professional (20 users) | $49/mo | $39/mo |
+| Enterprise (unlimited) | $99/mo | $79/mo |
 
 ### 🏢 On-Premises (annual licence by user batch)
 
 | Pack | Annual |
 |---|---|
-| 10-user | $1,499/yr |
-| 20-user | $2,699/yr |
-| 50-user | $5,499/yr |
-| 100-user | $9,499/yr |
+| 10-user | $599/yr |
+| 20-user | $999/yr |
+| 50-user | $1,999/yr |
+| 100-user | $3,499/yr |
 | Custom | Contact sales |
 
 ## Contact
