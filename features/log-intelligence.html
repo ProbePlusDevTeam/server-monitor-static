@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Log Intelligence — Server Monitor</title>
+  <meta name="description" content="Stream live container logs in your browser. Filter by time, copy snippets, or export full logs for incident analysis." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <div class="flex items-center justify-between" style="height:64px;">
+      <a href="../index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#4f46e5,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:18px;">🖥</div>
+        <span style="font-weight:800;font-size:17px;color:#f1f5f9;letter-spacing:-0.01em;">Server<span style="color:#818cf8;">Monitor</span></span>
+      </a>
+      <div class="flex items-center" style="display:flex;gap:8px;" id="nav-links">
+        <a href="../index.html#features" style="color:#94a3b8;font-size:14px;font-weight:500;text-decoration:none;padding:6px 10px;border-radius:8px;" onmouseover="this.style.color='#a5b4fc'" onmouseout="this.style.color='#94a3b8'">Features</a>
+        <a href="../index.html#pricing"  style="color:#94a3b8;font-size:14px;font-weight:500;text-decoration:none;padding:6px 10px;border-radius:8px;" onmouseover="this.style.color='#a5b4fc'" onmouseout="this.style.color='#94a3b8'">Pricing</a>
+        <a href="../index.html#contact"  class="btn-primary" style="padding:8px 20px;font-size:14px;">Talk to Us</a>
+      </div>
+      <button id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" style="display:none;background:none;border:none;cursor:pointer;padding:8px;color:#94a3b8;font-size:20px;"><i class="fa fa-bars"></i></button>
+    </div>
+  </div>
+  <div id="mobile-menu" role="menu">
+    <a href="../index.html#features">Features</a>
+    <a href="../index.html#pricing">Pricing</a>
+    <a href="../index.html#contact" style="color:#a5b4fc;font-weight:600;">Talk to Us →</a>
+  </div>
+</nav>
+<style>
+@media (max-width: 768px) { #nav-links { display: none !important; } #nav-toggle { display: block !important; } }
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.flex { display: flex; } .items-center { align-items: center; } .justify-between { justify-content: space-between; }
+</style>
+
+<section style="padding:120px 0 72px;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(251,191,36,0.18) 0%,rgba(79,70,229,0.08) 50%,transparent 100%);">
+  <div class="container" style="max-width:860px;text-align:center;">
+    <a href="../index.html#features" style="display:inline-flex;align-items:center;gap:6px;color:#94a3b8;font-size:13px;text-decoration:none;margin-bottom:24px;" onmouseover="this.style.color='#a5b4fc'" onmouseout="this.style.color='#94a3b8'"><i class="fa fa-arrow-left"></i> Back to all features</a>
+    <div style="width:64px;height:64px;border-radius:18px;background:rgba(251,191,36,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:28px;"><i class="fa fa-file-lines" style="color:#fbbf24;"></i></div>
+    <p style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#fbbf24;margin-bottom:12px;">Feature</p>
+    <h1 style="font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1.1;letter-spacing:-0.02em;margin-bottom:20px;">Advanced Log Intelligence</h1>
+    <p style="font-size:1.1rem;color:#94a3b8;max-width:620px;margin:0 auto;">Stream live container logs in your browser. Filter by time, copy snippets, or export full logs for deep incident analysis — no SSH required.</p>
+  </div>
+</section>
+
+<main style="padding:0 0 80px;">
+  <div class="container" style="max-width:900px;">
+    <section style="padding:56px 0 0;">
+      <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:20px;">What It Does</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+        <div style="background:#1e293b;border:1px solid #334155;border-radius:16px;padding:24px;">
+          <div style="font-size:22px;margin-bottom:12px;">📡</div>
+          <h3 style="font-weight:700;font-size:15px;margin-bottom:8px;">Live Log Streaming</h3>
+          <p style="color:#94a3b8;font-size:14px;line-height:1.65;">See container log output in real time, directly in your browser. No terminal, no SSH session needed.</p>
+        </div>
+        <div style="background:#1e293b;border:1px solid #334155;border-radius:16px;padding:24px;">
+          <div style="font-size:22px;margin-bottom:12px;">🗓️</div>
+          <h3 style="font-weight:700;font-size:15px;margin-bottom:8px;">Time-Range Filtering</h3>
+          <p style="color:#94a3b8;font-size:14px;line-height:1.65;">Jump to any point in history and filter logs by time range — isolate exactly what happened during an incident.</p>
+        </div>
+        <div style="background:#1e293b;border:1px solid #334155;border-radius:16px;padding:24px;">
+          <div style="font-size:22px;margin-bottom:12px;">📤</div>
+          <h3 style="font-weight:700;font-size:15px;margin-bottom:8px;">Export &amp; Copy</h3>
+          <p style="color:#94a3b8;font-size:14px;line-height:1.65;">Copy log snippets or export full log files for sharing with your team, creating incident reports, or auditing.</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding:56px 0 0;">
+      <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:24px;">Pros &amp; Cons</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:16px;padding:28px;">
+          <h3 style="font-size:15px;font-weight:700;color:#4ade80;margin-bottom:16px;display:flex;align-items:center;gap:8px;"><i class="fa fa-thumbs-up"></i> Pros</h3>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;">
+            <li style="display:flex;gap:10px;font-size:14px;color:#cbd5e1;"><span style="color:#4ade80;margin-top:2px;">✓</span> Drastically cuts time-to-diagnose during incidents</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:#cbd5e1;"><span style="color:#4ade80;margin-top:2px;">✓</span> Works across all connected hosts — no need to know which server to SSH into</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:#cbd5e1;"><span style="color:#4ade80;margin-top:2px;">✓</span> Historical log access on Professional (30 days) and Enterprise (90 days)</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:#cbd5e1;"><span style="color:#4ade80;margin-top:2px;">✓</span> Browser-based — accessible from anywhere, including mobile</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:#cbd5e1;"><span style="color:#4ade80;margin-top:2px;">✓</span> Faster incident handover — share exact log exports with teammates</li>
+          </ul>
+        </div>
+        <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:16px;padding:28px;">
+          <h3 style="font-size:15px;font-weight:700;color:#f87171;margin-bottom:16px;display:flex;align-items:center;gap:8px;"><i class="fa fa-thumbs-down"></i> Cons &amp; Considerations</h3>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;">
+            <li style="display:flex;gap:10px;font-size:14px;color:#94a3b8;"><span style="color:#f87171;margin-top:2px;">!</span> Log history limited to 7 days on Starter plan</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:#94a3b8;"><span style="color:#f87171;margin-top:2px;">!</span> No full-text log search — you filter by time, not keyword (search planned)</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:#94a3b8;"><span style="color:#f87171;margin-top:2px;">!</span> Very high-volume log producers may require storage tuning</li>
+            <li style="display:flex;gap:10px;font-size:14px;color:#94a3b8;"><span style="color:#f87171;margin-top:2px;">!</span> Live streaming requires a stable network connection</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding:56px 0 0;">
+      <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:20px;">Who Benefits Most</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;">
+        <span style="background:rgba(79,70,229,0.12);color:#a5b4fc;padding:8px 18px;border-radius:999px;font-size:14px;font-weight:600;">Incident Responders</span>
+        <span style="background:rgba(79,70,229,0.12);color:#a5b4fc;padding:8px 18px;border-radius:999px;font-size:14px;font-weight:600;">Backend Developers</span>
+        <span style="background:rgba(79,70,229,0.12);color:#a5b4fc;padding:8px 18px;border-radius:999px;font-size:14px;font-weight:600;">Support Engineers</span>
+        <span style="background:rgba(79,70,229,0.12);color:#a5b4fc;padding:8px 18px;border-radius:999px;font-size:14px;font-weight:600;">Compliance Auditors</span>
+      </div>
+    </section>
+
+    <section style="padding:56px 0 0;">
+      <div style="background:linear-gradient(135deg,rgba(79,70,229,0.15),rgba(6,182,212,0.1));border:1px solid rgba(79,70,229,0.3);border-radius:20px;padding:40px;text-align:center;">
+        <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:12px;">Diagnose incidents in seconds, not hours.</h2>
+        <p style="color:#94a3b8;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;">Start a free 14-day trial. No credit card required.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="../index.html#contact" class="btn-primary">Request a Demo</a>
+          <a href="../index.html#pricing" class="btn-outline">View Pricing</a>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding:56px 0 0;">
+      <h2 style="font-size:1.2rem;font-weight:700;color:#94a3b8;margin-bottom:20px;">Explore Other Features</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        <a href="container-operations.html" style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:10px 16px;font-size:14px;color:#cbd5e1;text-decoration:none;" onmouseover="this.style.borderColor='rgba(79,70,229,0.5)'" onmouseout="this.style.borderColor='#334155'">🐳 Container Operations</a>
+        <a href="alerting.html" style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:10px 16px;font-size:14px;color:#cbd5e1;text-decoration:none;" onmouseover="this.style.borderColor='rgba(79,70,229,0.5)'" onmouseout="this.style.borderColor='#334155'">🔔 Alerting</a>
+        <a href="multi-environment.html" style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:10px 16px;font-size:14px;color:#cbd5e1;text-decoration:none;" onmouseover="this.style.borderColor='rgba(79,70,229,0.5)'" onmouseout="this.style.borderColor='#334155'">🌐 Multi-Environment</a>
+        <a href="metrics.html" style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:10px 16px;font-size:14px;color:#cbd5e1;text-decoration:none;" onmouseover="this.style.borderColor='rgba(79,70,229,0.5)'" onmouseout="this.style.borderColor='#334155'">📈 Metrics &amp; Performance</a>
+        <a href="security-rbac.html" style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:10px 16px;font-size:14px;color:#cbd5e1;text-decoration:none;" onmouseover="this.style.borderColor='rgba(79,70,229,0.5)'" onmouseout="this.style.borderColor='#334155'">🛡 Security &amp; RBAC</a>
+        <a href="certificate-monitoring.html" style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:10px 16px;font-size:14px;color:#cbd5e1;text-decoration:none;" onmouseover="this.style.borderColor='rgba(79,70,229,0.5)'" onmouseout="this.style.borderColor='#334155'">🔒 Certificate Monitoring</a>
+        <a href="agent-config.html" style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:10px 16px;font-size:14px;color:#cbd5e1;text-decoration:none;" onmouseover="this.style.borderColor='rgba(79,70,229,0.5)'" onmouseout="this.style.borderColor='#334155'">⚙️ Agent Config</a>
+        <a href="data-retention.html" style="background:#1e293b;border:1px solid #334155;border-radius:10px;padding:10px 16px;font-size:14px;color:#cbd5e1;text-decoration:none;" onmouseover="this.style.borderColor='rgba(79,70,229,0.5)'" onmouseout="this.style.borderColor='#334155'">🗄 Data Retention</a>
+      </div>
+    </section>
+  </div>
+</main>
+<footer style="background:#070e1c;border-top:1px solid #1e293b;padding:32px 0;">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+    <a href="../index.html" style="font-size:14px;color:#475569;text-decoration:none;">← Back to Server Monitor</a>
+    <p style="font-size:12px;color:#334155;">© 2026 ProbePlus. All rights reserved.</p>
+  </div>
+</footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
